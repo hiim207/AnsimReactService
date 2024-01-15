@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ansimreact-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ansimreact
+  template:
+    metadata:
+      name: ansimreact
+      labels:
+        app: ansimreact
+    spec:
+      containers:
+      - name: ansimreact
+        image: docker.io/lee20jin/ansimreact_ansimreact:{{VERSION}}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+      imagePullSecrets:
+      - name: ansimreact-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ansimreact-service
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+    nodePort: 30002
+  selector:
+    app: ansimreact
+  type: NodePort
