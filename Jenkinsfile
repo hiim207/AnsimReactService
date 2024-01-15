@@ -11,7 +11,7 @@ pipeline {
            steps {
                sh "npm install"
                sh "npm run build"
-               sh "cp -r ./build ./docker/ansimreact/"
+               sh "cp -r ./build ./docker/apache2/"
            } 
         }
         stage("Docker Login") {
